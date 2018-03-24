@@ -23,9 +23,10 @@ export class ListsSectionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tasksActions.loadLists();
   }
 
-  onListSelected(id: number) {
+  onListSelected(id: string) {
     this.tasksActions.selectList(id);
   }
 

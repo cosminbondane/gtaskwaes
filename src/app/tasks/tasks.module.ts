@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { ListItemsSectionComponent } from './containers/list-items-section/list-items-section.component';
@@ -21,6 +22,7 @@ import { NewListPopupComponent } from './components/new-list-popup/new-list-popu
 import { ListItemActionsComponent } from './components/list-item-actions/list-item-actions.component';
 import { ListItemsComponent } from './components/list-items/list-items.component';
 import { NewListItemPopupComponent } from './components/new-list-item-popup/new-list-item-popup.component';
+import { GoogleTasksService } from './services/google-tasks.service';
 
 @NgModule({
   imports: [
@@ -34,16 +36,17 @@ import { NewListItemPopupComponent } from './components/new-list-item-popup/new-
     MatListModule,
     MatDialogModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     TasksPageComponent,
     ListItemsSectionComponent,
     ListsSectionComponent,
-    ListsActionsComponent, 
-    ListsComponent, 
-    NewListPopupComponent, 
-    ListItemActionsComponent, 
+    ListsActionsComponent,
+    ListsComponent,
+    NewListPopupComponent,
+    ListItemActionsComponent,
     ListItemsComponent,
     NewListItemPopupComponent
   ],
@@ -52,6 +55,9 @@ import { NewListItemPopupComponent } from './components/new-list-item-popup/new-
     NewListItemPopupComponent
   ],
   exports: [TasksPageComponent],
-  providers: [TasksActions]
+  providers: [
+    TasksActions,
+    GoogleTasksService
+  ]
 })
 export class TasksModule { }

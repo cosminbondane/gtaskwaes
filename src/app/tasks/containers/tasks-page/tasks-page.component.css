@@ -9,3 +9,8 @@
 mat-sidenav {
     width: 270px;
 }
+
+mat-progress-spinner {
+    left: 50%;
+    top: 40%;
+}

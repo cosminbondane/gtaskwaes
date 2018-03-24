@@ -1,7 +1,18 @@
 <ng-container>
-    <mat-toolbar color="primary">
-        tasks management
-    </mat-toolbar>
-    
-    <app-tasks-page></app-tasks-page>
+  <mat-toolbar color="primary">
+    tasks management
+  </mat-toolbar>
+
+  <mat-card class="connect-card">
+    <mat-card-content>
+        <p>You need to authenticate with your google account before seeing your tasks lists.</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button color="primary" (click)="authenticate()">
+            Connect
+        </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <app-tasks-page *ngIf="isAuthenticated"></app-tasks-page>
 </ng-container>

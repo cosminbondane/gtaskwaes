@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Waes</title>
@@ -12,7 +13,19 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 
 </head>
+
 <body>
   <app-root></app-root>
+
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+     gapi.load("client:auth2", function () {
+      gapi.auth2.init({
+        client_id: ''
+      });
+    });
+  </script>
+
 </body>
+
 </html>

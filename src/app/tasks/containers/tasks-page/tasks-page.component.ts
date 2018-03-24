@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import * as fromStore from '../../../app.store';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-tasks-page',
@@ -7,7 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksPageComponent implements OnInit {
 
-  constructor() { }
+  loading$: Observable<boolean>;
+
+  constructor(private store: Store<fromStore.State>) { 
+    this.loading$ = this.store.pipe(select(fromStore.getTasksLoading));
+  }
 
   ngOnInit() {
   }

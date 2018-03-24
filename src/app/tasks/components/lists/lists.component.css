@@ -1,3 +1,7 @@
-.selected {
-    background-color: red;
+mat-icon.selected {
+    color: red;
+}
+
+span.selected {
+    color: red;
 }

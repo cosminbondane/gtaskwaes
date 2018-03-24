@@ -1,5 +1,5 @@
 <mat-selection-list>
-  <mat-list-option *ngFor="let item of items">
+  <mat-list-option *ngFor="let item of items" [selected]="item.isDone">
     {{item.text}}
   </mat-list-option>
 </mat-selection-list>

@@ -1,4 +1,6 @@
 <mat-nav-list>
-  <a mat-list-item *ngFor="let list of items"
-    (click)="selectList(list.id)">{{list.name}}</a>
+  <a mat-list-item *ngFor="let list of items" (click)="selectList(list.id)">
+      <mat-icon aria-label="Add task" [ngClass]="{'selected': list.id === selectedItemId}">list</mat-icon>
+      <span [ngClass]="{'selected': list.id === selectedItemId}">{{list.name}}</span>
+  </a>
 </mat-nav-list>

@@ -14,3 +14,4 @@ export const getTasksState = (state: State) => state.tasks;
 export const getTasksUserLists = createSelector(getTasksState, fromTasks.getUserLists);
 export const getTasksSelectedListId = createSelector(getTasksState, fromTasks.getSelectedListId);
 export const getTasksSelectedListItems = createSelector(getTasksState, fromTasks.getSelectedListItems);
+export const getTasksLoading = createSelector(getTasksState, fromTasks.getLoading);

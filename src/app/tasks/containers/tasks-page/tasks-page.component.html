@@ -6,3 +6,7 @@
     <app-list-items-section></app-list-items-section>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<div *ngIf="loading$ | async" class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
