@@ -1,3 +1,7 @@
-<app-lists-actions></app-lists-actions>
+<app-lists-actions (newListAdded)="onNewListAdded($event)"></app-lists-actions>
+
 <mat-divider></mat-divider>
-<app-lists (listSelected)="onListSelected($event)"></app-lists>
+
+<app-lists [items]="userLists$ | async" [selectedItemId]="selectedListId$ | async"
+    (listSelected)="onListSelected($event)">
+</app-lists>

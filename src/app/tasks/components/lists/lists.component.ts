@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lists',
@@ -7,6 +7,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ListsComponent implements OnInit {
 
+  @Input() items;
+  @Input() selectedItemId;
+
   @Output() listSelected = new EventEmitter<number>();
 
   currentListId: number;
@@ -14,13 +17,11 @@ export class ListsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.currentListId = 1;
   }
 
   selectList(id: number) {
-    if (this.currentListId !== id) {
+    if (this.selectedItemId !== id) {
       this.listSelected.emit(id);
-      this.currentListId = id;
     }
   }
 }

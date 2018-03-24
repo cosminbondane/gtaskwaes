@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Create New List</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="List Name" [(ngModel)]="listname">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="listname" cdkFocusInitial>Ok</button>
+</div>
