@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListsActionsComponent } from './lists-actions.component';
+import { TasksMaterialModule } from '../../tasks.material.module';
 
 describe('ListsActionsComponent', () => {
   let component: ListsActionsComponent;
@@ -8,9 +9,10 @@ describe('ListsActionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListsActionsComponent ]
+      declarations: [ListsActionsComponent],
+      imports: [TasksMaterialModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -14,7 +14,7 @@ import { TasksActions } from '../../tasks.actions';
 export class ListsSectionComponent implements OnInit {
 
   userLists$: Observable<ListModel[]>;
-  selectedListId$: Observable<number>;
+  selectedListId$: Observable<string>;
 
   constructor(private store: Store<fromStore.State>,
     private tasksActions: TasksActions) { 

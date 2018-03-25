@@ -5,14 +5,14 @@ import { ListItemModel } from './models/list.item.model';
 export interface State {
     loading: boolean
     userLists: ListModel[],
-    selectedListId: number,
+    selectedListId: string,
     selectedListItems: ListItemModel[]
 }
 
-const initialState: State = {
+export const initialState: State = {
     loading: false,
     userLists: [],
-    selectedListId: -1,
+    selectedListId: null,
     selectedListItems: []
 }
 
@@ -20,17 +20,15 @@ export function reducer(state = initialState, action): State {
     switch (action.type) {
         case TasksActionsTypes.LOAD_LISTS:
         case TasksActionsTypes.ADD_LIST:
+        case TasksActionsTypes.ADD_LIST_ITEM:
+        case TasksActionsTypes.CHANGE_LIST_ITEM_STATUS:
             return { ...state, loading: true };
 
         case TasksActionsTypes.LOAD_LISTS_END:
             return { ...state, loading: false, userLists: action.payload };
 
         case TasksActionsTypes.ADD_LIST_END: {
-            const newList = new ListModel();
-            newList.id = action.payload.id;
-            newList.name = action.payload.name;
-            
-            return { ...state, loading: false, userLists: [...state.userLists, newList] };
+            return { ...state, loading: false, userLists: [...state.userLists, action.payload] };
         }
 
         case TasksActionsTypes.SELECT_LIST: {
@@ -41,14 +39,21 @@ export function reducer(state = initialState, action): State {
             return { ...state, loading: false, selectedListItems: action.payload }
         }
 
-        case TasksActionsTypes.ADD_LIST_ITEM: {
-            const newListItem = new ListItemModel();
-            newListItem.id = Math.floor((1 + Math.random()) * 0x10000);
-            newListItem.listId = state.selectedListId;
-            newListItem.position = state.selectedListItems.length + 1;
-            newListItem.text = action.payload;
+        case TasksActionsTypes.ADD_LIST_ITEM_END: {
+            return { ...state, loading: false, selectedListItems: [action.payload, ...state.selectedListItems] };
+        }
 
-            return { ...state, selectedListItems: [...state.selectedListItems, newListItem] };
+        case TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END: {
+            const itemIndex = state.selectedListItems.findIndex(item => item.id === action.payload.id);
+            return {
+                ...state,
+                loading: false,
+                selectedListItems: [
+                    ...state.selectedListItems.slice(0, itemIndex),
+                    { ...state.selectedListItems[itemIndex], status: action.payload.status },
+                    ...state.selectedListItems.slice(itemIndex + 1)
+                ]
+            }
         }
 
         default:

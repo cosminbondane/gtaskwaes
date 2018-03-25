@@ -3,7 +3,7 @@
     <app-lists-section></app-lists-section>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-list-items-section></app-list-items-section>
+    <app-list-items-section [listId]="listId$ | async"></app-list-items-section>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

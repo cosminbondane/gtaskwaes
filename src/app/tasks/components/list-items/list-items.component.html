@@ -1,5 +1,15 @@
-<mat-selection-list>
-  <mat-list-option *ngFor="let item of items" [selected]="item.isDone">
-    {{item.text}}
-  </mat-list-option>
-</mat-selection-list>
+<mat-list>
+  <mat-list-item *ngFor="let item of items">
+    <mat-checkbox [checked]="item.status === 'completed'" (change)="itemChecked(item.id, $event.checked)">
+      {{item.title}}
+    </mat-checkbox>
+    <div class="actions">
+      <button mat-icon-button color="primary">
+        <mat-icon aria-label="Edit task">edit</mat-icon>
+      </button>
+      <button mat-icon-button color="primary">
+        <mat-icon aria-label="Delete task">delete</mat-icon>
+      </button>
+    </div>
+  </mat-list-item>
+</mat-list>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ListItemModel } from '../../models/list.item.model';
 
 @Component({
@@ -9,10 +9,14 @@ import { ListItemModel } from '../../models/list.item.model';
 export class ListItemsComponent implements OnInit {
 
   @Input() items: ListItemModel[];
+  @Output() itemStatusChanged = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  itemChecked(itemId, checked) {
+    this.itemStatusChanged.emit({id: itemId, status: checked ? 'completed' : 'needsAction' });
+  }
 }

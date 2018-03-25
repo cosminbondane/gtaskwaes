@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TasksActions } from '../../tasks.actions';
 import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../../app.store';
@@ -12,19 +12,23 @@ import { ListItemModel } from '../../models/list.item.model';
 })
 export class ListItemsSectionComponent implements OnInit {
 
+  @Input() listId: string;
+
   listItems$: Observable<ListItemModel[]>;
-  listId$: Observable<number>;
 
   constructor(private store: Store<fromStore.State>,
-    private tasksActions: TasksActions) { 
-      this.listItems$ = store.pipe(select(fromStore.getTasksSelectedListItems));
-      this.listId$ = store.pipe(select(fromStore.getTasksSelectedListId));
-    }
+    private tasksActions: TasksActions) {
+    this.listItems$ = store.pipe(select(fromStore.getTasksSelectedListItems));
+  }
 
   ngOnInit() {
   }
 
-  onNewListItemAdded(text: string) {
-    this.tasksActions.addNewListItem(text);
+  onNewListItemAdded(title: string) {
+    this.tasksActions.addNewListItem(this.listId, title);
+  }
+
+  onItemStatusChanged({id, status}) {
+    this.tasksActions.changeListItemStatus(id, this.listId, status);
   }
 }

@@ -14,6 +14,10 @@ export enum TasksActionsTypes {
 
     LOAD_LIST_ITEMS = '[TASKS] Load list items',
     ADD_LIST_ITEM = '[TASKS] Add list item',
+    ADD_LIST_ITEM_END = '[TASKS] Add list item completed',
+    CHANGE_LIST_ITEM_STATUS = '[TASKS] Change list item status',
+    CHANGE_LIST_ITEM_STATUS_END = '[TASKS] Change list item status completed',
+
     REMOVE_LIST_ITEM = '[TASKS] Remove list item'
 }
 
@@ -26,33 +30,29 @@ export class TasksActions {
     loadLists() {
         this.store.dispatch({ type: TasksActionsTypes.LOAD_LISTS });
         this.googleTasksService.loadTasksLists().then(tasksLists => {
-            this.store.dispatch({
-                type: TasksActionsTypes.LOAD_LISTS_END,
-                payload: tasksLists
+            this.store.dispatch({ 
+                type: TasksActionsTypes.LOAD_LISTS_END, 
+                payload: tasksLists 
             });
         });
     }
 
-    addNewList(name: string) {
+    addNewList(title: string) {
         this.store.dispatch({ type: TasksActionsTypes.ADD_LIST });
-        this.googleTasksService.insertNewList(name).then(listId => {
+        this.googleTasksService.insertNewList(name).then((listId: string) => {
             this.store.dispatch({
                 type: TasksActionsTypes.ADD_LIST_END,
                 payload: {
                     id: listId,
-                    name
+                    title
                 }
             });
         });
     }
 
     selectList(id: string) {
-        this.store.dispatch({
-            type: TasksActionsTypes.SELECT_LIST,
-            payload: id
-        });
-
-        this.googleTasksService.loadTasks(id).then((tasks) => {
+        this.store.dispatch({ type: TasksActionsTypes.SELECT_LIST, payload: id });
+        this.googleTasksService.loadTasks(id).then(tasks => {
             this.store.dispatch({
                 type: TasksActionsTypes.LOAD_LIST_ITEMS,
                 payload: tasks
@@ -63,10 +63,26 @@ export class TasksActions {
     removeList(id: number) {
     }
 
-    addNewListItem(text: string) {
-        this.store.dispatch({
-            type: TasksActionsTypes.ADD_LIST_ITEM,
-            payload: text
+    addNewListItem(listId: string, title: string) {
+        this.store.dispatch({ type: TasksActionsTypes.ADD_LIST_ITEM });
+        this.googleTasksService.insertNewListItem(listId, title).then((listItem: ListItemModel) => {
+            this.store.dispatch({
+                type: TasksActionsTypes.ADD_LIST_ITEM_END,
+                payload: listItem
+            });
+        });
+    }
+
+    changeListItemStatus(id: string, listId: string, status: string) {
+        this.store.dispatch({ type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS });
+        this.googleTasksService.changeListItemStatus(id, listId, status).then(() => {
+            this.store.dispatch({
+                type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END,
+                payload: {
+                    id,
+                    status
+                }
+            });
         });
     }
 }

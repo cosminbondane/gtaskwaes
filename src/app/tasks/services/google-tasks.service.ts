@@ -26,7 +26,7 @@ export class GoogleTasksService {
       response.result.items.forEach(element => {
         taskLists.push({
           id: element.id,
-          name: element.title
+          title: element.title
         });
       });
     }
@@ -36,7 +36,7 @@ export class GoogleTasksService {
 
   loadTasks(id: string) {
     return new Promise((resolve) => {
-      gapi.client.tasks.tasks.list({tasklist: id}).then(response => {
+      gapi.client.tasks.tasks.list({ tasklist: id }).then(response => {
         resolve(this.transformGoogleTasksToListItemModel(response));
       });
     });
@@ -48,10 +48,9 @@ export class GoogleTasksService {
       response.result.items.forEach(element => {
         tasks.push({
           id: element.id,
-          text: element.title,
-          position: 0,
-          listId: 1,
-          isDone: element.status === 'completed'
+          title: element.title,
+          position: element.position,
+          status: element.status
         });
       });
     }
@@ -66,6 +65,31 @@ export class GoogleTasksService {
       }, err => {
         resolve(null);
       });
+    });
+  }
+
+  insertNewListItem(listId: string, title: string) {
+    return new Promise((resolve) => {
+      gapi.client.tasks.tasks.insert({ tasklist: listId, title }).then(response => {
+        resolve(response.result);
+      }, err => {
+        resolve(null);
+      });
+    });
+  }
+
+  changeListItemStatus(id: string, listId: string, status: string) {
+    return new Promise((resolve, reject) => {
+      let request: any = { tasklist: listId, task: id, status };
+      if (status !== 'completed') {
+        request.completed = null;
+      }
+      gapi.client.tasks.tasks.patch(request).then(response => {
+        resolve();
+      }, err => {
+        console.error(err);
+        reject();
+      })
     });
   }
 }

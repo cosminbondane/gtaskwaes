@@ -2,16 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 import { TasksPageComponent } from './containers/tasks-page/tasks-page.component';
 import { ListItemsSectionComponent } from './containers/list-items-section/list-items-section.component';
 import { ListsSectionComponent } from './containers/lists-section/lists-section.component';
@@ -24,20 +14,14 @@ import { ListItemsComponent } from './components/list-items/list-items.component
 import { NewListItemPopupComponent } from './components/new-list-item-popup/new-list-item-popup.component';
 import { GoogleTasksService } from './services/google-tasks.service';
 
+import { TasksMaterialModule } from './tasks.material.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
 
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatListModule,
-    MatDialogModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule
+    TasksMaterialModule
   ],
   declarations: [
     TasksPageComponent,
