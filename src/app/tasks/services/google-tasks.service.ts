@@ -21,7 +21,7 @@ export class GoogleTasksService {
   }
 
   transformGoogleTasksListsToListModel(response): ListModel[] {
-    let taskLists: ListModel[] = [];
+    const taskLists: ListModel[] = [];
     if (response.result && response.result.items) {
       response.result.items.forEach(element => {
         taskLists.push({
@@ -43,7 +43,7 @@ export class GoogleTasksService {
   }
 
   transformGoogleTasksToListItemModel(response): ListItemModel[] {
-    let tasks: ListItemModel[] = [];
+    const tasks: ListItemModel[] = [];
     if (response.result && response.result.items) {
       response.result.items.forEach(element => {
         tasks.push({
@@ -80,7 +80,7 @@ export class GoogleTasksService {
 
   changeListItemStatus(id: string, listId: string, status: string) {
     return new Promise((resolve, reject) => {
-      let request: any = { tasklist: listId, task: id, status };
+      const request: any = { tasklist: listId, task: id, status };
       if (status !== 'completed') {
         request.completed = null;
       }
@@ -89,7 +89,7 @@ export class GoogleTasksService {
       }, err => {
         console.error(err);
         reject();
-      })
+      });
     });
   }
 }

@@ -14,7 +14,7 @@ export class TasksPageComponent implements OnInit {
   loading$: Observable<boolean>;
   listId$: Observable<string>;
 
-  constructor(private store: Store<fromStore.State>) { 
+  constructor(private store: Store<fromStore.State>) {
     this.loading$ = this.store.pipe(select(fromStore.getTasksLoading));
     this.listId$ = this.store.pipe(select(fromStore.getTasksSelectedListId));
   }

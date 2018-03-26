@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ListItemModel } from "./models/list.item.model";
-import { ListModel } from "./models/list.model";
-import { GoogleTasksService } from "./services/google-tasks.service";
+import { ListItemModel } from './models/list.item.model';
+import { ListModel } from './models/list.model';
+import { GoogleTasksService } from './services/google-tasks.service';
 
 export enum TasksActionsTypes {
     LOAD_LISTS = '[TASKS] Load lists',
@@ -30,9 +30,9 @@ export class TasksActions {
     loadLists() {
         this.store.dispatch({ type: TasksActionsTypes.LOAD_LISTS });
         this.googleTasksService.loadTasksLists().then(tasksLists => {
-            this.store.dispatch({ 
-                type: TasksActionsTypes.LOAD_LISTS_END, 
-                payload: tasksLists 
+            this.store.dispatch({
+                type: TasksActionsTypes.LOAD_LISTS_END,
+                payload: tasksLists
             });
         });
     }
@@ -58,9 +58,6 @@ export class TasksActions {
                 payload: tasks
             });
         });
-    }
-
-    removeList(id: number) {
     }
 
     addNewListItem(listId: string, title: string) {

@@ -14,7 +14,7 @@ export class AppComponent {
   isAuthenticated = false;
 
   constructor(private ref: ChangeDetectorRef) {
-    gapi.load("client:auth2", function () {
+    gapi.load('client:auth2', function () {
       gapi.auth2.init({
         client_id: environment.google.client_id
       });

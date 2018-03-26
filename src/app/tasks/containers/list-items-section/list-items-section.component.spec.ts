@@ -33,7 +33,7 @@ describe('ListItemsSectionComponent', () => {
         })
       ],
       providers: [
-        { provide: TasksActions, useClass: MockTasksActions }, 
+        { provide: TasksActions, useClass: MockTasksActions },
         GoogleTasksService
       ]
     })

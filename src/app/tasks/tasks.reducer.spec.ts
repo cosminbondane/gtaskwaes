@@ -56,7 +56,7 @@ describe('TasksReducer', () => {
 
     it('should add new list item if ADD_LIST_ITEM_END action', () => {
         const listItem = new ListItemModel();
-        const newState = { ...initialState, loading: false, selectedListItems: [...initialState.selectedListItems, listItem] }
+        const newState = { ...initialState, loading: false, selectedListItems: [...initialState.selectedListItems, listItem] };
         const result = reducer(initialState, { type: TasksActionsTypes.ADD_LIST_ITEM_END, payload: listItem });
         expect(result).toEqual(newState);
     });

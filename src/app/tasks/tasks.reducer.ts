@@ -3,10 +3,10 @@ import { ListModel } from './models/list.model';
 import { ListItemModel } from './models/list.item.model';
 
 export interface State {
-    loading: boolean
-    userLists: ListModel[],
-    selectedListId: string,
-    selectedListItems: ListItemModel[]
+    loading: boolean;
+    userLists: ListModel[];
+    selectedListId: string;
+    selectedListItems: ListItemModel[];
 }
 
 export const initialState: State = {
@@ -14,7 +14,7 @@ export const initialState: State = {
     userLists: [],
     selectedListId: null,
     selectedListItems: []
-}
+};
 
 export function reducer(state = initialState, action): State {
     switch (action.type) {
@@ -36,7 +36,7 @@ export function reducer(state = initialState, action): State {
         }
 
         case TasksActionsTypes.LOAD_LIST_ITEMS: {
-            return { ...state, loading: false, selectedListItems: action.payload }
+            return { ...state, loading: false, selectedListItems: action.payload };
         }
 
         case TasksActionsTypes.ADD_LIST_ITEM_END: {
@@ -44,10 +44,10 @@ export function reducer(state = initialState, action): State {
         }
 
         case TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END: {
-            const itemIndex = state.selectedListItems.findIndex(item => item.id === action.payload.id);
+            const itemIndex = state.selectedListItems.findIndex(listItem => listItem.id === action.payload.id);
             const item = state.selectedListItems[itemIndex];
             item.status = 'completed';
-            
+
             return {
                 ...state,
                 loading: false,
@@ -56,7 +56,7 @@ export function reducer(state = initialState, action): State {
                     item,
                     ...state.selectedListItems.slice(itemIndex + 1)
                 ]
-            }
+            };
         }
 
         default:

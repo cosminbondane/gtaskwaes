@@ -1,10 +1,10 @@
-Object.defineProperty(window, 'gapi', {  
+Object.defineProperty(window, 'gapi', {
   value: {
     load() {},
     client: {
       tasks: {
         tasklists: {
-          list() { return new Promise(resolve => resolve({result: {}}))}
+          list() { return new Promise(resolve => resolve({result: {}})); }
         }
       }
     }

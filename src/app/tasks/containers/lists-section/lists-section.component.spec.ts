@@ -40,7 +40,7 @@ describe('ListsSectionComponent', () => {
         })
       ],
       providers: [
-        { provide: TasksActions, useClass: MockTasksActions }, 
+        { provide: TasksActions, useClass: MockTasksActions },
         { provide: GoogleTasksService, useClass: MockGoogleTasksService}
       ]
     })

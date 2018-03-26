@@ -2,12 +2,12 @@ import * as fromTasks from './tasks/tasks.reducer';
 import { createSelector, ActionReducerMap } from '@ngrx/store';
 
 export interface State {
-    tasks: fromTasks.State
+    tasks: fromTasks.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
     tasks: fromTasks.reducer
-}
+};
 
 // Selectors
 export const getTasksState = (state: State) => state.tasks;

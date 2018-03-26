@@ -17,7 +17,7 @@ export class ListsSectionComponent implements OnInit {
   selectedListId$: Observable<string>;
 
   constructor(private store: Store<fromStore.State>,
-    private tasksActions: TasksActions) { 
+    private tasksActions: TasksActions) {
     this.userLists$ = store.pipe(select(fromStore.getTasksUserLists));
     this.selectedListId$ = store.pipe(select(fromStore.getTasksSelectedListId));
   }

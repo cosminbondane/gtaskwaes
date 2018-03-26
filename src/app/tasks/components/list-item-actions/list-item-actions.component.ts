@@ -19,9 +19,9 @@ export class ListItemActionsComponent implements OnInit {
   }
 
   addNewListItem() {
-    let dialogRef = this.dialog.open(NewListItemPopupComponent, { width: '250px' });
+    const dialogRef = this.dialog.open(NewListItemPopupComponent, { width: '250px' });
     dialogRef.afterClosed().subscribe(text => {
-      if(text) {
+      if (text) {
         this.newListItemAdded.emit(text);
       }
     });
