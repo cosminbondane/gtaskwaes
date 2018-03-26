@@ -9,6 +9,8 @@ import * as fromTasks from '../../tasks.reducer';
 import { ListsActionsComponent } from '../../components/lists-actions/lists-actions.component';
 import { ListsComponent } from '../../components/lists/lists.component';
 
+import '../../../../test/global-variables';
+
 class MockTasksActions extends TasksActions {
   loadLists(): void { }
   addNewList(title: string): void { }

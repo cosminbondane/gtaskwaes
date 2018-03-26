@@ -2,6 +2,9 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MatToolbarModule, MatCardModule, MatButtonModule } from '@angular/material';
 import { TasksModule } from './tasks/tasks.module';
+
+import '../test/global-variables';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
