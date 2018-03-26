@@ -66,8 +66,11 @@ describe('TasksReducer', () => {
         listItem.id = '1123R';
         listItem.status = 'needsAction';
         const currentState = { ...initialState, selectedListItems: [listItem] };
-        const newState = { ...currentState, selectedListItems: [{id: '1123R', status: 'completed'}] };
-        const result = reducer(currentState, { type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END, payload: { id: '1123R', status: 'completed' } });
+
+        listItem.status = 'completed';
+        const newState = { ...currentState, selectedListItems: [listItem] };
+
+        const result = reducer(currentState, { type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END, payload: listItem });
         expect(result).toEqual(newState);
     });
 });

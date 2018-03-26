@@ -32,7 +32,10 @@ describe('ListItemsSectionComponent', () => {
           tasks: fromTasks.reducer
         })
       ],
-      providers: [{ provide: TasksActions, useClass: MockTasksActions }, GoogleTasksService]
+      providers: [
+        { provide: TasksActions, useClass: MockTasksActions }, 
+        GoogleTasksService
+      ]
     })
     .compileComponents();
   }));

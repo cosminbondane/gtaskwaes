@@ -45,12 +45,15 @@ export function reducer(state = initialState, action): State {
 
         case TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END: {
             const itemIndex = state.selectedListItems.findIndex(item => item.id === action.payload.id);
+            const item = state.selectedListItems[itemIndex];
+            item.status = 'completed';
+            
             return {
                 ...state,
                 loading: false,
                 selectedListItems: [
                     ...state.selectedListItems.slice(0, itemIndex),
-                    { ...state.selectedListItems[itemIndex], status: action.payload.status },
+                    item,
                     ...state.selectedListItems.slice(itemIndex + 1)
                 ]
             }

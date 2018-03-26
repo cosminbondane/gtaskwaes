@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { environment } from '../environments/environment.prod';
 
 declare var gapi: any;
 
@@ -11,6 +12,14 @@ export class AppComponent {
 
   title = 'app';
   isAuthenticated = false;
+
+  constructor(private ref: ChangeDetectorRef) {
+    gapi.load("client:auth2", function () {
+      gapi.auth2.init({
+        client_id: environment.google.client_id
+      });
+    });
+  }
 
   authenticate() {
     return gapi.auth2.getAuthInstance()
@@ -31,6 +40,7 @@ export class AppComponent {
       .then(() => {
         console.log('GAPI client loaded for API');
         this.isAuthenticated = true;
+        this.ref.detectChanges(); // inform manually about changed
       }, (err) => {
         console.error('Error loading GAPI client for API', err);
       });

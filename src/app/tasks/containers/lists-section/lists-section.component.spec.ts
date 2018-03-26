@@ -18,6 +18,12 @@ class MockTasksActions extends TasksActions {
   changeListItemStatus(id: string, listId: string, status: string): void { }
 }
 
+class MockGoogleTasksService extends GoogleTasksService {
+  loadTasksLists(): Promise<{}> {
+    return new Promise(resolve => resolve());
+  }
+}
+
 describe('ListsSectionComponent', () => {
   let component: ListsSectionComponent;
   let fixture: ComponentFixture<ListsSectionComponent>;
@@ -31,7 +37,10 @@ describe('ListsSectionComponent', () => {
           tasks: fromTasks.reducer
         })
       ],
-      providers: [{ provide: TasksActions, useClass: MockTasksActions }, GoogleTasksService]
+      providers: [
+        { provide: TasksActions, useClass: MockTasksActions }, 
+        { provide: GoogleTasksService, useClass: MockGoogleTasksService}
+      ]
     })
       .compileComponents();
   }));
