@@ -2,7 +2,12 @@
 
 Angular 5 application mirror to the [Google Tasks](https://mail.google.com/tasks/canvas)
 
-You need to create a google application with taks permissions - https://developers.google.com/
+## Setup Google credentials
+
+1. Go to https://console.cloud.google.com/apis/credentials/
+2. Press `Create credentials` and select `OAuth clientID`
+3. Select `Web Application` and complete `Restrictions` with http://localhost:4200
+4. Get the client_id and update environmnet/environmnet.dev
 
 ## Development server
 
@@ -10,7 +15,7 @@ The project was generated using angular-cli (1.7.3). Start the project by runnin
 
 ```
 npm install
-npm start
+ng serve
 ```
 
 ## Running unit tests
