@@ -7,7 +7,7 @@ import { ListItemsSectionComponent } from './containers/list-items-section/list-
 import { ListsSectionComponent } from './containers/lists-section/lists-section.component';
 import { ListsActionsComponent } from './components/lists-actions/lists-actions.component';
 import { ListsComponent } from './components/lists/lists.component';
-import { TasksActions } from './tasks.actions';
+import { TasksActionsService } from './tasks.actions';
 import { NewListPopupComponent } from './components/new-list-popup/new-list-popup.component';
 import { ListItemActionsComponent } from './components/list-item-actions/list-item-actions.component';
 import { ListItemsComponent } from './components/list-items/list-items.component';
@@ -15,12 +15,13 @@ import { NewListItemPopupComponent } from './components/new-list-item-popup/new-
 import { GoogleTasksService } from './services/google-tasks.service';
 
 import { TasksMaterialModule } from './tasks.material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-
+    BrowserAnimationsModule,
     TasksMaterialModule
   ],
   declarations: [
@@ -40,7 +41,7 @@ import { TasksMaterialModule } from './tasks.material.module';
   ],
   exports: [TasksPageComponent],
   providers: [
-    TasksActions,
+    TasksActionsService,
     GoogleTasksService
   ]
 })

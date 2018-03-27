@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TasksActions } from '../../tasks.actions';
+import { TasksActionsService } from '../../tasks.actions';
 import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../../app.store';
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,7 @@ export class ListItemsSectionComponent implements OnInit {
   listItems$: Observable<ListItemModel[]>;
 
   constructor(private store: Store<fromStore.State>,
-    private tasksActions: TasksActions) {
+    private tasksActions: TasksActionsService) {
     this.listItems$ = store.pipe(select(fromStore.getTasksSelectedListItems));
   }
 

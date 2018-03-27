@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListsSectionComponent } from './lists-section.component';
 import { TasksMaterialModule } from '../../tasks.material.module';
 import { StoreModule } from '@ngrx/store';
-import { TasksActions } from '../../tasks.actions';
+import { TasksActionsService } from '../../tasks.actions';
 import { GoogleTasksService } from '../../services/google-tasks.service';
 import * as fromTasks from '../../tasks.reducer';
 import { ListsActionsComponent } from '../../components/lists-actions/lists-actions.component';
@@ -11,7 +11,7 @@ import { ListsComponent } from '../../components/lists/lists.component';
 
 import '../../../../test/global-variables';
 
-class MockTasksActions extends TasksActions {
+class MockTasksActions extends TasksActionsService {
   loadLists(): void { }
   addNewList(title: string): void { }
   selectList(id: string): void { }
@@ -29,7 +29,7 @@ class MockGoogleTasksService extends GoogleTasksService {
 describe('ListsSectionComponent', () => {
   let component: ListsSectionComponent;
   let fixture: ComponentFixture<ListsSectionComponent>;
-  let tasksActions: TasksActions;
+  let tasksActions: TasksActionsService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,7 +40,7 @@ describe('ListsSectionComponent', () => {
         })
       ],
       providers: [
-        { provide: TasksActions, useClass: MockTasksActions },
+        { provide: TasksActionsService, useClass: MockTasksActions },
         { provide: GoogleTasksService, useClass: MockGoogleTasksService}
       ]
     })
@@ -48,7 +48,7 @@ describe('ListsSectionComponent', () => {
   }));
 
   beforeEach(() => {
-    tasksActions = TestBed.get(TasksActions);
+    tasksActions = TestBed.get(TasksActionsService);
     fixture = TestBed.createComponent(ListsSectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

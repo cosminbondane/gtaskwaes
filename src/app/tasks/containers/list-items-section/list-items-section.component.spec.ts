@@ -8,10 +8,10 @@ import { TasksMaterialModule } from '../../tasks.material.module';
 import { StoreModule } from '@ngrx/store';
 
 import * as fromTasks from '../../tasks.reducer';
-import { TasksActions } from '../../tasks.actions';
+import { TasksActionsService } from '../../tasks.actions';
 import { GoogleTasksService } from '../../services/google-tasks.service';
 
-class MockTasksActions extends TasksActions {
+class MockTasksActions extends TasksActionsService {
   loadLists(): void {  }
   addNewList(title: string): void {  }
   selectList(id: string): void {  }
@@ -33,7 +33,7 @@ describe('ListItemsSectionComponent', () => {
         })
       ],
       providers: [
-        { provide: TasksActions, useClass: MockTasksActions },
+        { provide: TasksActionsService, useClass: MockTasksActions },
         GoogleTasksService
       ]
     })

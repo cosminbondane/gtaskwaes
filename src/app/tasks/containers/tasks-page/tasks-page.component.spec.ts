@@ -5,7 +5,7 @@ import { ListItemsSectionComponent } from '../list-items-section/list-items-sect
 import { ListsSectionComponent } from '../lists-section/lists-section.component';
 import { TasksMaterialModule } from '../../tasks.material.module';
 import { StoreModule } from '@ngrx/store';
-import { TasksActions } from '../../tasks.actions';
+import { TasksActionsService } from '../../tasks.actions';
 import * as fromTasks from '../../tasks.reducer';
 import { GoogleTasksService } from '../../services/google-tasks.service';
 import { ListsActionsComponent } from '../../components/lists-actions/lists-actions.component';
@@ -41,7 +41,7 @@ describe('TasksPageComponent', () => {
           tasks: fromTasks.reducer
         })
       ],
-      providers: [TasksActions, GoogleTasksService]
+      providers: [TasksActionsService, GoogleTasksService]
     })
       .compileComponents();
   }));

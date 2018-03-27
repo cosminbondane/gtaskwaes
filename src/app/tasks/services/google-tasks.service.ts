@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ListModel } from '../models/list.model';
 import { ListItemModel } from '../models/list.item.model';
+import { Observable } from 'rxjs/Observable';
 
 declare var gapi: any;
 
@@ -9,18 +10,19 @@ export class GoogleTasksService {
 
   constructor() { }
 
-  loadTasksLists() {
-    return new Promise((resolve) => {
+  loadTasksLists() : Observable<ListModel[]> {
+    return new Observable(observer => {
       gapi.client.tasks.tasklists.list({}).then(response => {
-        resolve(this.transformGoogleTasksListsToListModel(response));
+        observer.next(this.transformGoogleTasksListsToListModel(response));
+        observer.complete();
       }, err => {
-        console.error(err);
-        resolve([]);
+        observer.error('Cannot fetch Tasks lists');
+        observer.complete();
       });
     });
   }
 
-  transformGoogleTasksListsToListModel(response): ListModel[] {
+  private transformGoogleTasksListsToListModel(response): ListModel[] {
     const taskLists: ListModel[] = [];
     if (response.result && response.result.items) {
       response.result.items.forEach(element => {
@@ -34,15 +36,19 @@ export class GoogleTasksService {
     return taskLists;
   }
 
-  loadTasks(id: string) {
-    return new Promise((resolve) => {
+  loadTasks(id: string): Observable<ListItemModel[]> {
+    return new Observable(observer => {
       gapi.client.tasks.tasks.list({ tasklist: id }).then(response => {
-        resolve(this.transformGoogleTasksToListItemModel(response));
+        observer.next((this.transformGoogleTasksToListItemModel(response)));
+        observer.complete();
+      }, err => {
+        observer.error('Cannot fetch Tasks');
+        observer.complete();
       });
     });
   }
 
-  transformGoogleTasksToListItemModel(response): ListItemModel[] {
+  private transformGoogleTasksToListItemModel(response): ListItemModel[] {
     const tasks: ListItemModel[] = [];
     if (response.result && response.result.items) {
       response.result.items.forEach(element => {
@@ -58,37 +64,44 @@ export class GoogleTasksService {
     return tasks;
   }
 
-  insertNewList(title: string) {
-    return new Promise((resolve) => {
+  insertNewList(title: string): Observable<string> {
+    return new Observable(observer => {
       gapi.client.tasks.tasklists.insert({ title }).then(response => {
-        resolve(response.result.id);
+        observer.next(response.result.id);
+        observer.complete();
       }, err => {
-        resolve(null);
+        observer.error('Cannot add new list');
+        observer.complete();
       });
     });
   }
 
-  insertNewListItem(listId: string, title: string) {
-    return new Promise((resolve) => {
+  insertNewListItem(listId: string, title: string): Observable<ListItemModel> {
+    return new Observable(observer => {
       gapi.client.tasks.tasks.insert({ tasklist: listId, title }).then(response => {
-        resolve(response.result);
+        observer.next(response.result);
+        observer.complete();
       }, err => {
-        resolve(null);
+        observer.error('Cannot insert new task');
+        observer.complete();
       });
     });
   }
 
-  changeListItemStatus(id: string, listId: string, status: string) {
-    return new Promise((resolve, reject) => {
+  changeListItemStatus(id: string, listId: string, status: string): Observable<any> {
+    return new Observable(observer => {
       const request: any = { tasklist: listId, task: id, status };
       if (status !== 'completed') {
         request.completed = null;
       }
+
       gapi.client.tasks.tasks.patch(request).then(response => {
-        resolve();
+        observer.next();
+        observer.complete();
       }, err => {
         console.error(err);
-        reject();
+        observer.error('Cannot update task');
+        observer.complete();
       });
     });
   }
