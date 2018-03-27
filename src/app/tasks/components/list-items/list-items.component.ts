@@ -10,13 +10,18 @@ export class ListItemsComponent implements OnInit {
 
   @Input() items: ListItemModel[];
   @Output() itemStatusChanged = new EventEmitter<any>();
+  @Output() itemRemoved = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  itemChecked(itemId, checked) {
+  checkItem(itemId, checked) {
     this.itemStatusChanged.emit({id: itemId, status: checked ? 'completed' : 'needsAction' });
+  }
+
+  removeItem(itemId) {
+    this.itemRemoved.emit(itemId);
   }
 }

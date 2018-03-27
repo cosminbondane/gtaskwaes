@@ -40,7 +40,7 @@ export class AppComponent {
       .then(() => {
         console.log('GAPI client loaded for API');
         this.isAuthenticated = true;
-        this.ref.detectChanges(); // inform manually about changed
+        //this.ref.detectChanges(); // inform manually about changed
       }, (err) => {
         console.error('Error loading GAPI client for API', err);
       });

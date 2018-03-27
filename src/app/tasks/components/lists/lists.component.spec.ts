@@ -24,4 +24,21 @@ describe('ListsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit selectList if new list is selected', () => {
+    component.listSelected.subscribe(id => {
+      expect(id).toEqual('132F');
+    });
+
+    component.selectList('132F');
+  });
+
+  it('should emit selectList if new list is selected', () => {
+    component.selectedItemId = '132F';
+    component.listSelected.subscribe(id => {
+      throw new Error();
+    });
+
+    component.selectList('132F');
+  });
 });

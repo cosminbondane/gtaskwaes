@@ -11,7 +11,7 @@ export const reducers: ActionReducerMap<State> = {
 
 // Selectors
 export const getTasksState = (state: State) => state.tasks;
-export const getTasksUserLists = createSelector(getTasksState, fromTasks.getUserLists);
+export const getTasksUserLists = createSelector(getTasksState, fromTasks.getLists);
 export const getTasksSelectedListId = createSelector(getTasksState, fromTasks.getSelectedListId);
-export const getTasksSelectedListItems = createSelector(getTasksState, fromTasks.getSelectedListItems);
+export const getTasksSelectedListItems = createSelector(getTasksState, fromTasks.getListItems);
 export const getTasksLoading = createSelector(getTasksState, fromTasks.getLoading);

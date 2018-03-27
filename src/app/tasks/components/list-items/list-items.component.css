@@ -1,4 +1,9 @@
-.actions {
+.list-items {
+    width: 80%;
+    margin: auto;
+}
+
+.list-items .actions {
     position: absolute;
     right: 0%;
 }

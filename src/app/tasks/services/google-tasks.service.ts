@@ -10,7 +10,7 @@ export class GoogleTasksService {
 
   constructor() { }
 
-  loadTasksLists() : Observable<ListModel[]> {
+  loadTasksLists(): Observable<ListModel[]> {
     return new Observable(observer => {
       gapi.client.tasks.tasklists.list({}).then(response => {
         observer.next(this.transformGoogleTasksListsToListModel(response));
@@ -104,5 +104,17 @@ export class GoogleTasksService {
         observer.complete();
       });
     });
+  }
+
+  removeListItem(id: string, listId: string) {
+    return new Observable(observer => {
+      gapi.client.tasks.tasks.delete({ tasklist: listId, task: id, status }).then(response => {
+        observer.next();
+        observer.complete();
+      }, err => {
+        observer.error('Cannot delete task');
+        observer.complete();
+      })
+    })
   }
 }

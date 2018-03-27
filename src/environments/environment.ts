@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   google: {
-    client_id: ''
+    client_id: '688898833566-sh87odajbib5gc3cp0j2j8p5h15gi2e2.apps.googleusercontent.com'
   }
 };

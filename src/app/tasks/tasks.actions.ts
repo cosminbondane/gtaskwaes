@@ -15,7 +15,9 @@ export enum TasksActionsTypes {
     ADD_LIST_ITEM = '[TASKS] Add list item',
     ADD_LIST_ITEM_END = '[TASKS] Add list item completed',
     CHANGE_LIST_ITEM_STATUS = '[TASKS] Change list item status',
-    CHANGE_LIST_ITEM_STATUS_END = '[TASKS] Change list item status completed'
+    CHANGE_LIST_ITEM_STATUS_END = '[TASKS] Change list item status completed',
+    REMOVE_LIST_ITEM = '[TASKS] Remove list item',
+    REMOVE_LIST_ITEM_END = '[TASKS] Remove list item end'
 }
 
 @Injectable()
@@ -26,8 +28,7 @@ export class TasksActionsService {
     loadLists() {
         this.store.dispatch({ type: TasksActionsTypes.LOAD_LISTS });
         this.googleTasksService.loadTasksLists().subscribe(tasksLists => {
-            this.store.dispatch({
-                type: TasksActionsTypes.LOAD_LISTS_END,
+            this.store.dispatch({ type: TasksActionsTypes.LOAD_LISTS_END,
                 payload: tasksLists
             });
         }, err => {
@@ -38,8 +39,7 @@ export class TasksActionsService {
     addNewList(title: string) {
         this.store.dispatch({ type: TasksActionsTypes.ADD_LIST });
         this.googleTasksService.insertNewList(name).subscribe((listId: string) => {
-            this.store.dispatch({
-                type: TasksActionsTypes.ADD_LIST_END,
+            this.store.dispatch({ type: TasksActionsTypes.ADD_LIST_END,
                 payload: {
                     id: listId,
                     title
@@ -53,9 +53,8 @@ export class TasksActionsService {
     selectList(id: string) {
         this.store.dispatch({ type: TasksActionsTypes.SELECT_LIST, payload: id });
         this.googleTasksService.loadTasks(id).subscribe(tasks => {
-            this.store.dispatch({
-                type: TasksActionsTypes.LOAD_LIST_ITEMS,
-                payload: tasks
+            this.store.dispatch({ type: TasksActionsTypes.LOAD_LIST_ITEMS, 
+                payload: tasks 
             });
         }, err => {
             // to:do
@@ -65,9 +64,8 @@ export class TasksActionsService {
     addNewListItem(listId: string, title: string) {
         this.store.dispatch({ type: TasksActionsTypes.ADD_LIST_ITEM });
         this.googleTasksService.insertNewListItem(listId, title).subscribe((listItem: ListItemModel) => {
-            this.store.dispatch({
-                type: TasksActionsTypes.ADD_LIST_ITEM_END,
-                payload: listItem
+            this.store.dispatch({ type: TasksActionsTypes.ADD_LIST_ITEM_END, 
+                payload: listItem 
             });
         }, err => {
             // to:do
@@ -77,14 +75,24 @@ export class TasksActionsService {
     changeListItemStatus(id: string, listId: string, status: string) {
         this.store.dispatch({ type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS });
         this.googleTasksService.changeListItemStatus(id, listId, status).subscribe(() => {
-            this.store.dispatch({
-                type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END,
+            this.store.dispatch({ type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END,
                 payload: {
                     id,
                     status
                 }
             });
         }, err => {
+            // to:do
+        });
+    }
+
+    removeListItem(id: string, listId: string) {
+        this.store.dispatch({ type: TasksActionsTypes.REMOVE_LIST_ITEM });
+        this.googleTasksService.removeListItem(id, listId).subscribe(() => {
+            this.store.dispatch({ type: TasksActionsTypes.REMOVE_LIST_ITEM_END, 
+                payload: id  
+            });
+        }, err=> {
             // to:do
         });
     }

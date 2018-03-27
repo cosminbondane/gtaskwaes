@@ -10,7 +10,6 @@ import { MatDialog } from '@angular/material';
 export class ListItemActionsComponent implements OnInit {
 
   @Input() disabled: boolean;
-
   @Output() newListItemAdded = new EventEmitter<string>();
 
   constructor(private dialog: MatDialog) { }

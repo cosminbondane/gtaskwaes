@@ -24,4 +24,21 @@ describe('ListItemsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit itemStatusChanged if item was checked/unchecked', () => {
+    component.itemStatusChanged.subscribe(({id, status}) => {
+      expect(id).toEqual('132F');
+      expect(status).toEqual('completed');
+    });
+
+    component.checkItem('132F', true);
+  });
+
+  it('should emit itemRemoved if item was removed', () => {
+    component.itemRemoved.subscribe(id => {
+      expect(id).toEqual('132F');
+    });
+
+    component.removeItem('132F');
+  });
 });

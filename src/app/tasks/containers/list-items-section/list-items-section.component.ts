@@ -31,4 +31,8 @@ export class ListItemsSectionComponent implements OnInit {
   onItemStatusChanged({id, status}) {
     this.tasksActions.changeListItemStatus(id, this.listId, status);
   }
+
+  onItemRemoved(id) {
+    this.tasksActions.removeListItem(id, this.listId);
+  }
 }

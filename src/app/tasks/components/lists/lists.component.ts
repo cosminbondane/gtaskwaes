@@ -9,17 +9,14 @@ export class ListsComponent implements OnInit {
 
   @Input() items;
   @Input() selectedItemId;
-
-  @Output() listSelected = new EventEmitter<number>();
-
-  currentListId: number;
+  @Output() listSelected = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  selectList(id: number) {
+  selectList(id: string) {
     if (this.selectedItemId !== id) {
       this.listSelected.emit(id);
     }

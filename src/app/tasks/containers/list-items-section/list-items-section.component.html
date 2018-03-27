@@ -1,7 +1,10 @@
-<app-list-item-actions [disabled]="!listId" (newListItemAdded)="onNewListItemAdded($event)">
+<app-list-item-actions [disabled]="!listId" 
+    (newListItemAdded)="onNewListItemAdded($event)">
 </app-list-item-actions>
 
 <mat-divider></mat-divider>
 
-<app-list-items [items]="listItems$ | async" (itemStatusChanged)="onItemStatusChanged($event)">
+<app-list-items [items]="listItems$ | async" 
+    (itemStatusChanged)="onItemStatusChanged($event)"
+    (itemRemoved)="onItemRemoved($event)">
 </app-list-items>
