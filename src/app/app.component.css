@@ -1,3 +1,5 @@
-.connect-card {
+mat-card.connect-card {
     max-width: 400px;
+    margin: auto;
+    top: 15px;
 }

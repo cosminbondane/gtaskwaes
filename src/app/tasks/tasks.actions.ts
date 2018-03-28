@@ -38,7 +38,7 @@ export class TasksActionsService {
 
     addNewList(title: string) {
         this.store.dispatch({ type: TasksActionsTypes.ADD_LIST });
-        this.googleTasksService.insertNewList(name).subscribe((listId: string) => {
+        this.googleTasksService.insertNewList(title).subscribe((listId: string) => {
             this.store.dispatch({ type: TasksActionsTypes.ADD_LIST_END,
                 payload: {
                     id: listId,

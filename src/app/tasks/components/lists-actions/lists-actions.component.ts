@@ -18,6 +18,7 @@ export class ListsActionsComponent implements OnInit {
 
   addNewList() {
     const dialogRef = this.dialog.open(NewListPopupComponent, { width: '250px' });
+    
     dialogRef.afterClosed().subscribe(listName => {
       if (listName) {
         this.newListAdded.emit(listName);

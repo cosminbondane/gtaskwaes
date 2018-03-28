@@ -3,9 +3,14 @@
     tasks management
   </mat-toolbar>
 
-  <mat-card class="connect-card">
+  <mat-card class="connect-card" *ngIf="!isAuthenticated">
+    <mat-card-title>
+        Welcome to tasks management
+    </mat-card-title>
     <mat-card-content>
-        <p>You need to authenticate with your google account before seeing your tasks lists.</p>
+        <p>
+          In order to manage your Google tasks lists you need to connect with your Google Account.
+        </p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-button color="primary" (click)="authenticate()">

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { environment } from '../environments/environment';
 
 declare var gapi: any;
@@ -13,7 +13,7 @@ export class AppComponent {
   title = 'app';
   isAuthenticated = false;
 
-  constructor(private ref: ChangeDetectorRef) {
+  constructor(private ref: ChangeDetectorRef, private ngZone: NgZone) {
     gapi.load('client:auth2', function () {
       gapi.auth2.init({
         client_id: environment.google.client_id
@@ -22,27 +22,17 @@ export class AppComponent {
   }
 
   authenticate() {
-    return gapi.auth2.getAuthInstance()
-      .signIn({
-        scope: 'https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/tasks.readonly'
-      })
-      .then(() => {
-        console.log('Sign-in successful');
-        this.loadClient();
-      },
-        (err) => {
-          console.error('Error signing in', err);
+    this.ngZone.runOutsideAngular(() => {
+      gapi.auth2.getAuthInstance()
+        .signIn({
+          scope: 'https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/tasks.readonly'
+        })
+        .then(() => {
+          gapi.client.load('https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest', 'v1')
+            .then(() => {
+              this.ngZone.run(() => this.isAuthenticated = true);
+            })
         });
-  }
-
-  loadClient() {
-    return gapi.client.load('https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest', 'v1')
-      .then(() => {
-        console.log('GAPI client loaded for API');
-        this.isAuthenticated = true;
-        //this.ref.detectChanges(); // inform manually about changed
-      }, (err) => {
-        console.error('Error loading GAPI client for API', err);
-      });
+    });
   }
 }
