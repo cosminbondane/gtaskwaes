@@ -119,8 +119,8 @@ describe('TasksReducer', () => {
             listItem.status = 'needsAction';
 
             const currentState = { ...initialState, listItems: [listItem] };
-            const newState = { ...initialState, listItems: [] }
-            const result = reducer(currentState, {type: TasksActionsTypes.REMOVE_LIST_ITEM_END, payload: '1123R' });
+            const newState = { ...initialState, listItems: [] };
+            const result = reducer(currentState, { type: TasksActionsTypes.REMOVE_LIST_ITEM_END, payload: '1123R' });
             expect(result).toEqual(newState);
         });
     });

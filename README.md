@@ -1,6 +1,11 @@
 # Tasks management (google tasks)
 
-Angular 5 application mirror to the [Google Tasks](https://mail.google.com/tasks/canvas)
+Application mirror to the [Google Tasks](https://mail.google.com/tasks/canvas)
+
+Technologies stack
+* [Angular version 5](https://angular.io)
+* [Angular material](https://material.angular.io/)
+* [Ngrx](https://github.com/ngrx/platform)
 
 ## Setup Google credentials
 
@@ -11,25 +16,35 @@ Angular 5 application mirror to the [Google Tasks](https://mail.google.com/tasks
 
 ## Development server
 
-The project was generated using angular-cli (1.7.3). Start the project by running
+The project was generated using angular-cli (1.7.3). To start the project open termanial and run
 
 ```
 npm install
 ng serve
+
+# if ng is not found installed it globally
+npm install @angular/cli --global
 ```
 
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+```
+# with watch
+ng test
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+# single run
+ng test --single-run
+
+# with coverage
+ng test --single-run --code-coverage
+```
 
 ## Todos / Improvements
 
-* Move google client token to environment variable
-* Additional unit tests
-* Change store structure for arrays - use {ids: [1, 2, 3], byId: {'1': {}, '2': {}, '3': {}}} (performance)
-* Add new functionalities (remove tasks, edit task, move task)
-* Supporting big lists / task-lists
+* Unit tests for HTML
+* Change how arrays are stored in store. Use instead something like `{ ids: [1, 2, 3], byId: {'1': {}, '2': {}, '3': {}} }`
+* Add new functionalities (edit task, move task)
+* Unit tests for google tasks service
+* Support for big lists or big task-lists

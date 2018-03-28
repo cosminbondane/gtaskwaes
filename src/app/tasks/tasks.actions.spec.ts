@@ -12,7 +12,7 @@ describe('TasksActions', () => {
 
   let service;
   let storeSpy;
-  let googleTasksServiceSpy; 
+  let googleTasksServiceSpy;
 
   beforeEach(() => {
     storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
@@ -21,7 +21,7 @@ describe('TasksActions', () => {
     ]);
 
     service = new TasksActionsService(storeSpy, googleTasksServiceSpy);
-  })
+  });
 
   describe('loadLists', () => {
     it('should dispatch LOAD_LISTS, call google service and dispatch LOAD_LIST_END', () => {
@@ -55,7 +55,7 @@ describe('TasksActions', () => {
   describe('selectList', () => {
     it('should dispatch SELECT_LIST, call google service and dispatch LOAD_LIST_ITEMS', () => {
       const id = '123R';
-      
+
       googleTasksServiceSpy.loadTasks.and.returnValue(Observable.of([]));
 
       service.selectList(id);
@@ -71,15 +71,15 @@ describe('TasksActions', () => {
     it('should dispatch ADD_LIST_ITEM, call google service and dispatch ADD_LIST_ITEM_END', () => {
       const listId = '123R';
       const title = 'Hello';
-      
-      googleTasksServiceSpy.insertNewListItem.and.returnValue(Observable.of({listId, title}));
+
+      googleTasksServiceSpy.insertNewListItem.and.returnValue(Observable.of({ listId, title }));
 
       service.addNewListItem(listId, title);
 
       expect(googleTasksServiceSpy.insertNewListItem).toHaveBeenCalled;
       expect(storeSpy.dispatch).toHaveBeenCalledTimes(2);
       expect(storeSpy.dispatch).toHaveBeenCalledWith({ type: TasksActionsTypes.ADD_LIST_ITEM });
-      expect(storeSpy.dispatch).toHaveBeenCalledWith({ type: TasksActionsTypes.ADD_LIST_ITEM_END, payload: {listId, title} });
+      expect(storeSpy.dispatch).toHaveBeenCalledWith({ type: TasksActionsTypes.ADD_LIST_ITEM_END, payload: { listId, title } });
     });
   });
 
@@ -88,7 +88,7 @@ describe('TasksActions', () => {
       const listId = '123R';
       const id = 'I677';
       const status = 'completed';
-      
+
       googleTasksServiceSpy.changeListItemStatus.and.returnValue(Observable.of({}));
 
       service.changeListItemStatus(id, listId, status);
@@ -96,7 +96,7 @@ describe('TasksActions', () => {
       expect(googleTasksServiceSpy.changeListItemStatus).toHaveBeenCalled;
       expect(storeSpy.dispatch).toHaveBeenCalledTimes(2);
       expect(storeSpy.dispatch).toHaveBeenCalledWith({ type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS });
-      expect(storeSpy.dispatch).toHaveBeenCalledWith({ type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END, payload: {id, status} });
+      expect(storeSpy.dispatch).toHaveBeenCalledWith({ type: TasksActionsTypes.CHANGE_LIST_ITEM_STATUS_END, payload: { id, status } });
     });
   });
 
@@ -104,7 +104,7 @@ describe('TasksActions', () => {
     it('should dispatch REMOVE_LIST_ITEM, call google service and dispatch REMOVE_LIST_ITEM_END', () => {
       const listId = '123R';
       const id = 'I677';
-      
+
       googleTasksServiceSpy.removeListItem.and.returnValue(Observable.of({}));
 
       service.removeListItem(id, listId);

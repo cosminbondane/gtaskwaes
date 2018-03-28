@@ -1,53 +1,73 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import * as fromTasks from '../../tasks.reducer';
+import { ListItemsSectionComponent } from './list-items-section.component';
+import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ListItemActionsComponent } from '../../components/list-item-actions/list-item-actions.component';
+import { ListItemsComponent } from '../../components/list-items/list-items.component';
+import { TasksMaterialModule } from '../../tasks.material.module';
+import { StoreModule, Store } from '@ngrx/store';
+import { TasksActionsService } from '../../tasks.actions';
 
-// import { ListItemsSectionComponent } from './list-items-section.component';
-// import { MatDividerModule } from '@angular/material';
-// import { ListItemActionsComponent } from '../../components/list-item-actions/list-item-actions.component';
-// import { ListItemsComponent } from '../../components/list-items/list-items.component';
-// import { TasksMaterialModule } from '../../tasks.material.module';
-// import { StoreModule } from '@ngrx/store';
+describe('ListsSectionComponent', () => {
+  let component: ListItemsSectionComponent;
+  let fixture: ComponentFixture<ListItemsSectionComponent>;
 
-// import * as fromTasks from '../../tasks.reducer';
-// import { TasksActionsService } from '../../tasks.actions';
-// import { GoogleTasksService } from '../../services/google-tasks.service';
+  let storeSpy;
+  let tasksActionsServiceSpy;
 
-// class MockTasksActions extends TasksActionsService {
-//   loadLists(): void {  }
-//   addNewList(title: string): void {  }
-//   selectList(id: string): void {  }
-//   removeList(id: number): void {  }
-//   addNewListItem(listId: string, title: string): void {  }
-//   changeListItemStatus(id: string, listId: string, status: string): void {  }
-// }
+  beforeEach(() => {
+    storeSpy = jasmine.createSpyObj('Store', [
+      'pipe'
+    ]);
 
-// describe('ListItemsSectionComponent', () => {
-//   let component: ListItemsSectionComponent;
-//   let fixture: ComponentFixture<ListItemsSectionComponent>;
+    tasksActionsServiceSpy = jasmine.createSpyObj('TasksActionsService', [
+      'addNewListItem', 'changeListItemStatus', 'removeListItem'
+    ]);
+  });
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ ListItemsSectionComponent, ListItemActionsComponent, ListItemsComponent ],
-//       imports: [TasksMaterialModule,
-//         StoreModule.forRoot({
-//           tasks: fromTasks.reducer
-//         })
-//       ],
-//       providers: [
-//         { provide: TasksActionsService, useClass: MockTasksActions },
-//         GoogleTasksService
-//       ]
-//     })
-//     .compileComponents();
-//   }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ListItemsSectionComponent,
+        ListItemActionsComponent,
+        ListItemsComponent
+      ],
+      imports: [TasksMaterialModule,
+        StoreModule.forRoot({
+          tasks: fromTasks.reducer
+        })
+      ],
+      providers: [
+        { provide: Store, useValue: storeSpy },
+        { provide: TasksActionsService, useValue: tasksActionsServiceSpy }
+      ]
+    })
+      .compileComponents();
+  }));
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(ListItemsSectionComponent);
-//     component = fixture.componentInstance;
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ListItemsSectionComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//     fixture.detectChanges();
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it('should add new list item', () => {
+    component.listId = '1R';
+    component.onNewListItemAdded('mtask');
+    expect(tasksActionsServiceSpy.addNewListItem).toHaveBeenCalledWith('1R', 'mtask');
+  });
+
+  it('should change item status', () => {
+    component.listId = '2R';
+    component.onItemStatusChanged({id: '2Ri', status: 'completed'});
+    expect(tasksActionsServiceSpy.changeListItemStatus).toHaveBeenCalledWith('2Ri', '2R', 'completed');
+  });
+
+  it('should remove item', () => {
+    component.listId = '3R';
+    component.onItemRemoved('3Ri');
+    expect(tasksActionsServiceSpy.removeListItem).toHaveBeenCalledWith('3Ri', '3R');
+  });
+});

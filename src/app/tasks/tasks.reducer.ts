@@ -69,7 +69,7 @@ export function reducer(state = initialState, action): State {
                     ...state.listItems.slice(0, itemIndex),
                     ...state.listItems.slice(itemIndex + 1)
                 ]
-            }
+            };
         }
 
         default:

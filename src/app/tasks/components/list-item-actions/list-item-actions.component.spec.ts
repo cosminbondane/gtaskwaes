@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 describe('ListItemActionsComponent', () => {
   let component: ListItemActionsComponent;
   let fixture: ComponentFixture<ListItemActionsComponent>;
-  let matDialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+  const matDialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,7 +39,7 @@ describe('ListItemActionsComponent', () => {
   it('should open popup on pressing AddNewTask', () => {
     matDialogSpy.open.and.returnValue({ afterClosed: () => Observable.of({}) });
     component.addNewListItem();
-    
+
     expect(matDialogSpy.open).toHaveBeenCalled;
   });
 });

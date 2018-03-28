@@ -1,18 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewListItemPopupComponent } from './new-list-item-popup.component';
-import { MatDialog, MatDialogModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatDialogRef } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { TasksMaterialModule } from '../../tasks.material.module';
+import { MatDialogRef } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-xdescribe('NewListPopupComponent', () => {
+describe('NewListPopupComponent', () => {
   let component: NewListItemPopupComponent;
   let fixture: ComponentFixture<NewListItemPopupComponent>;
+  const matDialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NewListItemPopupComponent ],
-      imports: [MatDialogModule, MatInputModule, MatButtonModule, MatFormFieldModule, FormsModule],
-      providers: [MatDialogRef]
+      imports: [TasksMaterialModule, FormsModule, NoopAnimationsModule],
+      providers: [{ provide: MatDialogRef, useValue: matDialogRefSpy}]
     })
     .compileComponents();
   }));
@@ -25,5 +28,10 @@ xdescribe('NewListPopupComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should close modal if press No', () => {
+    component.onNoClick();
+    expect(matDialogRefSpy.close).toHaveBeenCalled;
   });
 });

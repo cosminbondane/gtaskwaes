@@ -32,7 +32,7 @@ export class ListItemsSectionComponent implements OnInit {
     this.tasksActions.changeListItemStatus(id, this.listId, status);
   }
 
-  onItemRemoved(id) {
+  onItemRemoved(id: string) {
     this.tasksActions.removeListItem(id, this.listId);
   }
 }

@@ -31,7 +31,7 @@ export class AppComponent {
           gapi.client.load('https://content.googleapis.com/discovery/v1/apis/tasks/v1/rest', 'v1')
             .then(() => {
               this.ngZone.run(() => this.isAuthenticated = true);
-            })
+            });
         });
     });
   }

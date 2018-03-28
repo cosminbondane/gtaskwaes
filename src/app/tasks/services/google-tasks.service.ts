@@ -114,7 +114,7 @@ export class GoogleTasksService {
       }, err => {
         observer.error('Cannot delete task');
         observer.complete();
-      })
-    })
+      });
+    });
   }
 }
