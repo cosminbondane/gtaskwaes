@@ -44,7 +44,17 @@ ng test --single-run --code-coverage
 ## Todos / Improvements
 
 * Unit tests for HTML
-* Change how arrays are stored in store. Use instead something like `{ ids: [1, 2, 3], byId: {'1': {}, '2': {}, '3': {}} }`
+* Change how arrays are stored in store - something like this
+```
+{ 
+  ids: [1, 2, 3], 
+  byId: {
+    '1': {}, 
+    '2': {}, 
+    '3': {}
+   } 
+}
+```
 * Add new functionalities (edit task, move task)
 * Unit tests for google tasks service
 * Support for big lists or big task-lists
